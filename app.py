@@ -4,7 +4,7 @@ import requests
 st.set_page_config(page_title="Generatore Post Facebook Sindaca 🏛️", page_icon="🏛️")
 
 st.title("🏛️ Generatore Post Facebook Sindaca")
-st.subheader("di Saettonia")
+
 st.markdown(
     "_Perché scrivere un post quando puoi generarne uno con il giusto peso istituzionale, "
     "la giusta dose di pathos civico e un numero adeguato di ringraziamenti?_"
@@ -32,7 +32,7 @@ Presenti e da ringraziare: {presenti if presenti else 'non specificato'}
 Dettaglio specifico: {dettaglio if dettaglio else 'nessuno'}"""
 
             api_key = st.secrets["GEMINI_API_KEY"]
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
             payload = {"contents": [{"parts": [{"text": prompt}]}]}
             response = requests.post(url, json=payload, timeout=30)
             result = response.json()
