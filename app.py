@@ -1,5 +1,5 @@
 import streamlit as st
-from openai import OpenAI
+import google.generativeai as genai
 
 st.set_page_config(page_title="Sindaca Generator 🏛️", page_icon="🏛️")
 
@@ -22,26 +22,19 @@ if st.button("✍️ Genera Post Istituzionale", use_container_width=True, type=
         st.warning("Inserisci almeno l'evento per procedere!")
     else:
         with st.spinner("Elaborazione del pathos civico in corso..."):
-            client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+            genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+            model = genai.GenerativeModel("gemini-1.5-flash")
 
-            system_prompt = """Agisci come un generatore di post per Facebook per Giulia De Santis, la Sindaca di Montefiascone. Il tuo obiettivo è scrivere post pubblici altamente retorici, emotivi, istituzionali e focalizzati sul senso di comunità.
+            prompt = f"""Agisci come un generatore di post per Facebook per Giulia De Santis, la Sindaca di Montefiascone. Il tuo obiettivo è scrivere post pubblici altamente retorici, emotivi, istituzionali e focalizzati sul senso di comunità.
 Regole di stile: Usa parole che evocano forti sentimenti civici; usa metafore classiche sulla cura e la crescita ('la democrazia è una pianta da curare'); usa un tono materno verso i giovani; dedica una parte enorme del post a ringraziare ossessivamente ogni istituzione, associazione o figura coinvolta.
-Struttura: 1. Apertura ad effetto. 2. Il cuore dell'evento descritto in modo profondo. 3. Una lezione di vita/morale sul senso civico. 4. Una lista estesa e puntuale di ringraziamenti. 5. Chiusura ad effetto con un incoraggiamento per la città."""
+Struttura: 1. Apertura ad effetto. 2. Il cuore dell'evento descritto in modo profondo. 3. Una lezione di vita/morale sul senso civico. 4. Una lista estesa e puntuale di ringraziamenti. 5. Chiusura ad effetto con un incoraggiamento per la città.
 
-            user_message = f"""Evento: {evento}
+Evento: {evento}
 Presenti e da ringraziare: {presenti if presenti else 'non specificato'}
 Dettaglio specifico: {dettaglio if dettaglio else 'nessuno'}"""
 
-            response = client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_message},
-                ],
-                temperature=0.9,
-            )
-
-            post = response.choices[0].message.content
+            response = model.generate_content(prompt)
+            post = response.text
 
         st.success("Post generato con successo!")
         st.markdown("### 📋 Il tuo post istituzionale:")
