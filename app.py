@@ -1,5 +1,5 @@
 import streamlit as st
-import google.generativeai as genai
+import requests
 
 st.set_page_config(page_title="Sindaca Generator 🏛️", page_icon="🏛️")
 
@@ -22,9 +22,6 @@ if st.button("✍️ Genera Post Istituzionale", use_container_width=True, type=
         st.warning("Inserisci almeno l'evento per procedere!")
     else:
         with st.spinner("Elaborazione del pathos civico in corso..."):
-            genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-            model = genai.GenerativeModel("gemini-1.5-flash")
-
             prompt = f"""Agisci come un generatore di post per Facebook per Giulia De Santis, la Sindaca di Montefiascone. Il tuo obiettivo è scrivere post pubblici altamente retorici, emotivi, istituzionali e focalizzati sul senso di comunità.
 Regole di stile: Usa parole che evocano forti sentimenti civici; usa metafore classiche sulla cura e la crescita ('la democrazia è una pianta da curare'); usa un tono materno verso i giovani; dedica una parte enorme del post a ringraziare ossessivamente ogni istituzione, associazione o figura coinvolta.
 Struttura: 1. Apertura ad effetto. 2. Il cuore dell'evento descritto in modo profondo. 3. Una lezione di vita/morale sul senso civico. 4. Una lista estesa e puntuale di ringraziamenti. 5. Chiusura ad effetto con un incoraggiamento per la città.
@@ -33,11 +30,18 @@ Evento: {evento}
 Presenti e da ringraziare: {presenti if presenti else 'non specificato'}
 Dettaglio specifico: {dettaglio if dettaglio else 'nessuno'}"""
 
-            response = model.generate_content(prompt)
-            post = response.text
+            api_key = st.secrets["GEMINI_API_KEY"]
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+            payload = {"contents": [{"parts": [{"text": prompt}]}]}
+            response = requests.post(url, json=payload, timeout=30)
+            result = response.json()
 
-        st.success("Post generato con successo!")
-        st.markdown("### 📋 Il tuo post istituzionale:")
-        st.markdown(post)
-        st.code(post, language=None)
-        st.caption("Copia il testo qui sopra e incollalo su Facebook. Buona pubblicazione, Sindaca! 🏛️")
+            if response.status_code != 200:
+                st.error(f"Errore API: {result}")
+            else:
+                post = result["candidates"][0]["content"]["parts"][0]["text"]
+                st.success("Post generato con successo!")
+                st.markdown("### 📋 Il tuo post istituzionale:")
+                st.markdown(post)
+                st.code(post, language=None)
+                st.caption("Copia il testo qui sopra e incollalo su Facebook. Buona pubblicazione, Sindaca! 🏛️")
