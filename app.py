@@ -4,7 +4,7 @@ import requests
 st.set_page_config(page_title="Sindaca Generator 🏛️", page_icon="🏛️")
 
 st.title("🏛️ Generatore di post per Facebook")
-st.subheader("Comune di Montefiascone - Ufficio Sindaca e Assessori vari ed eventuali")
+st.subheader("Comune di Montefiascone - Ufficio Sindaca e Assessori vari")
 st.markdown(
     "_Perché scrivere un post quando puoi generarne uno con il giusto peso istituzionale, "
     "la giusta dose di pathos civico e un numero adeguato di ringraziamenti?_"
