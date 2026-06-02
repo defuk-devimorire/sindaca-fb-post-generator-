@@ -1,5 +1,5 @@
 import streamlit as st
-from google import genai                                                                                                                                                                                                  
+import google.generativeai as genai
 
 st.set_page_config(page_title="Sindaca Generator 🏛️", page_icon="🏛️")
 
@@ -23,7 +23,7 @@ if st.button("✍️ Genera Post Istituzionale", use_container_width=True, type=
     else:
         with st.spinner("Elaborazione del pathos civico in corso..."):
             genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-            model = genai.GenerativeModel("gemini-2.0-flash")
+            model = genai.GenerativeModel("gemini-1.5-flash")
 
             prompt = f"""Agisci come un generatore di post per Facebook per Giulia De Santis, la Sindaca di Montefiascone. Il tuo obiettivo è scrivere post pubblici altamente retorici, emotivi, istituzionali e focalizzati sul senso di comunità.
 Regole di stile: Usa parole che evocano forti sentimenti civici; usa metafore classiche sulla cura e la crescita ('la democrazia è una pianta da curare'); usa un tono materno verso i giovani; dedica una parte enorme del post a ringraziare ossessivamente ogni istituzione, associazione o figura coinvolta.
