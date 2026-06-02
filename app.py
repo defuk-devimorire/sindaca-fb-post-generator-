@@ -3,8 +3,8 @@ import requests
 
 st.set_page_config(page_title="Sindaca Generator 🏛️", page_icon="🏛️")
 
-st.title("🏛️ Generatore di Post Istituzionali")
-st.subheader("della Sindaca di Montefiascone")
+st.title("🏛️ Generatore di Post Fecebook")
+st.subheader("Comune di Montefiascone - Ufficio Sindaca")
 st.markdown(
     "_Perché scrivere un post quando puoi generarne uno con il giusto peso istituzionale, "
     "la giusta dose di pathos civico e un numero adeguato di ringraziamenti?_"
@@ -23,7 +23,7 @@ if st.button("✍️ Genera Post Istituzionale", use_container_width=True, type=
     else:
         with st.spinner("Elaborazione del pathos civico in corso..."):
             prompt = f"""Agisci come un generatore di post per Facebook per Giulia De Santis, la Sindaca di Montefiascone. Il tuo obiettivo è scrivere post pubblici altamente retorici, emotivi, istituzionali e focalizzati sul senso di comunità.
-Regole di stile: Usa parole che evocano forti sentimenti civici; usa metafore classiche sulla cura e la crescita ('la democrazia è una pianta da curare'); usa un tono materno verso i giovani; dedica una parte enorme del post a ringraziare ossessivamente ogni istituzione, associazione o figura coinvolta.
+Regole di stile: Usa parole che evocano forti sentimenti civici; usa metafore classiche sulla cura e la crescita ('la democrazia è una pianta da curare'); usa un tono materno verso i giovani anche se non è madre, è single e ha meno di 40 anni ma di aprime come una boomer; dedica una parte enorme del post a ringraziare ossessivamente ogni istituzione, associazione o figura coinvolta.
 Struttura: 1. Apertura ad effetto. 2. Il cuore dell'evento descritto in modo profondo. 3. Una lezione di vita/morale sul senso civico. 4. Una lista estesa e puntuale di ringraziamenti. 5. Chiusura ad effetto con un incoraggiamento per la città.
 
 Evento: {evento}
