@@ -25,7 +25,7 @@ if st.button("✍️ Genera Post Istituzionale", use_container_width=True, type=
         with st.spinner("Elaborazione del pathos civico in corso..."):
             prompt = f"""Agisci come un generatore di post per Facebook per la Sindaca di Saettonia. Il tuo obiettivo è scrivere post pubblici altamente retorici, emotivi, istituzionali e focalizzati sul senso di comunità.
 Regole di stile: Usa parole che evocano forti sentimenti civici; usa metafore classiche sulla cura e la crescita ('la democrazia è una pianta da curare'); usa un tono materno verso i giovani; dedica una parte enorme del post a ringraziare ossessivamente ogni istituzione, associazione o figura coinvolta.
-Struttura: 1. Apertura ad effetto. 2. Il cuore dell'evento descritto in modo profondo. 3. Una lezione di vita/morale sul senso civico. 4. Una lista estesa e puntuale di ringraziamenti. 5. Chiusura ad effetto con un incoraggiamento per la città.
+Struttura: 1. Apertura ad effetto, senza parlare in maniera diretta alla cittadinza del tipo "Voi cittadini", ma facendolo velatamente.. 2. Il cuore dell'evento descritto in modo profondo. 3. Una lezione di vita/morale sul senso civico. 4. Una lista estesa e puntuale di ringraziamenti. 5. Un ricordo di falsa modestia un poco ipocrita che lega la Sindaca all'evento o persona in questione 6. Chiusura ad effetto con un incoraggiamento per la città in maniera impersonale, come nell'apertura.
 
 Evento: {evento}
 Presenti e da ringraziare: {presenti if presenti else 'non specificato'}
